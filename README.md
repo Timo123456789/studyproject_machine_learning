@@ -20,3 +20,20 @@
 - neighborhood operations
   - edge detection
 - optical flow
+
+
+### folder structure
+- 16mm_dvs-30_basler-70_combined_veryslow
+- insects
+  - train
+    - images
+    - images_rgb
+    - labels
+    - labels_rgb
+  - val
+- scripts
+  - preprocessing
+  - computer vision operations
+  - yolo scripts ?
+- videos
+- yolo7
