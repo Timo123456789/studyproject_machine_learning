@@ -1,0 +1,4 @@
+train: ../insects2/train/images
+val: ../insects2/train/images
+nc: 1 
+names: ['insect']

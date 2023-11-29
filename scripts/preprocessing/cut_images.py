@@ -2,8 +2,8 @@ import cv2
 import os
 
 # setup
-image_dir = 'D:/SP_ML4IM/insects/train/images'
-image_rgb_dir = 'D:/SP_ML4IM/insects/train/images_rgb'
+image_dir = 'insects/train/images'
+image_rgb_dir = 'insects/train/images_rgb'
 
 # Liste alle Dateien im Ordner "images"
 image_files = os.listdir(image_dir)

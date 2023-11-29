@@ -1,8 +1,8 @@
 import cv2
 
 # input
-image_dir = 'D:/SP_ML4IM/insects/train/images_rgb/img_001_003923.png'
-label_dir = 'D:/SP_ML4IM/insects/train/labels_rgb/img_001_003923.txt' 
+image_dir = 'insects/train/images_rgb/img_001_003923.png'
+label_dir = 'insects/train/labels_rgb/img_001_003923.txt' 
 
 # Bild laden
 image = cv2.imread(image_dir)

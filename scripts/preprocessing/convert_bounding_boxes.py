@@ -1,8 +1,8 @@
 import os
 
 # Setup
-input_dir = 'D:/SP_ML4IM/insects/train/labels'
-output_dir = 'D:/SP_ML4IM/insects/train/labels_rgb'
+input_dir = 'insects/train/labels'
+output_dir = 'insects/train/labels_rgb'
 
 # Liste alle Dateien im Eingabeordner
 input_files = os.listdir(input_dir)
