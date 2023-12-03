@@ -185,9 +185,9 @@ def create_directory(directory_path):
     
     
 if __name__ == "__main__":
-    dataset_dir = "D:/studyproject_machine_learning/insects"
-    video_dir = "D:/studyproject_machine_learning/videos"
-    anotation_location = "D:/studyproject_machine_learning/export-result.ndjson"
+    dataset_dir = "insects"
+    video_dir = "videos"
+    anotation_location = "export-result.ndjson"
     
     data = read_ndjson(anotation_location)
     

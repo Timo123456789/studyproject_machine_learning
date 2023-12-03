@@ -3,8 +3,8 @@ import cv2
 # this script is for testing the shift of the dvs and the rgb stream
 
 #setup
-video1_dir = 'D:/studyproject_machine_learning/videos_dvs/2023-09-28-botanical_garden/2023-09-28_12-16-27.479006981_combined_000_4000.mp4'
-video2_dir = 'D:/studyproject_machine_learning/videos/2023-09-28-botanical_garden/2023-09-28_12-16-27.479006981_combined_000_4000.mp4'
+video1_dir = 'path/to/dvs/video'
+video2_dir = 'path/to/rgb/video'
 
 # Öffne die beiden Videos
 video1 = cv2.VideoCapture(video1_dir)

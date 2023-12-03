@@ -46,8 +46,8 @@ def cut_video(video_dir, output_dir):
 
 if __name__ == "__main__":
     # Setup
-    video_dir = 'D:/studyproject_machine_learning/videos_raw/2023-09-28-botanical_garden'
-    output_dir = 'D:/studyproject_machine_learning/videos_dvs/2023-09-28-botanical_garden'
+    video_dir = 'path/to/raw/video'
+    output_dir = 'path/to/video/dvs'
 
     # Liste alle Dateien im Ordner "videos"
     video_files = os.listdir(video_dir)

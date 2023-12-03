@@ -3,8 +3,8 @@ import cv2
 # this script lays a bounding box over an image
 
 # input
-image_dir = 'D:/studyproject_machine_learning/insects/train/images/img_001_003923.png'
-label_dir = 'D:/studyproject_machine_learning/insects/train/labels/img_001_003923.txt' 
+image_dir = 'path/to/frame/'
+label_dir = 'path/to/label' 
 
 # Bild laden
 image = cv2.imread(image_dir)

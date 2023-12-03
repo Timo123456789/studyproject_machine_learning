@@ -5,6 +5,8 @@ import os, cv2
 # Setup
 width = 1920
 height = 1200
+
+# bounding-box data can be found in export-result.ndjson
 dict = {"left": 849.9052631578948, "top": 790.1578947368421, "width": 101, "height": 90}
 
 old_box = f"{0} {dict['left']} {dict['top']} {dict['width']} {dict['height']}"
@@ -58,7 +60,7 @@ print(box)
 
 #-------------------------------------------------------------
 # input
-image_dir = 'D:/studyproject_machine_learning/insects/train/images/img_001_002001.png'
+image_dir = 'path/to/frame/with/bounding/box'
 
 # Bild laden
 image = cv2.imread(image_dir)

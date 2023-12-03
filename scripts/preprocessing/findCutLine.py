@@ -3,7 +3,7 @@ import cv2
 # this script was for finding the exact cut line between rgb and dvs
 
 # Lese das Bild
-image = cv2.imread('D:/studyproject_machine_learning/insects/train/images/img_001_000001.png')
+image = cv2.imread('path/to/raw/image')
 
 # Konvertiere das Bild in Graustufen
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
