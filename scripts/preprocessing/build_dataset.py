@@ -1,4 +1,5 @@
 import json
+
 def read_ndjson(path):
     return [json.loads(line) for line in open(path, 'r')]
 
@@ -81,20 +82,49 @@ class AnnotationsVideo:
         return res
     
 def labelbox_bb_to_yolo(dict, width, height):
+    # shrink factor
+    factor_x = 0.97
+    factor_y = 0.89
+
+    # calculate center
     center_x = dict["left"] + (dict["width"] /2)
     center_y = dict["top"] + (dict["height"] /2)
+    # calculate image center
+    img_center_x = width / 2
+    img_center_y = height / 2
+
+    # calculate difference between image center and bounding box center
+    diff_x = center_x - img_center_x
+    diff_y = center_y - img_center_y
+
+    # scale difference
+    diff_x *= factor_x
+    diff_y *= factor_y
+
+    # add difference to image center
+    new_center_x = img_center_x + diff_x
+    new_center_y = img_center_y + diff_y
+
+    # scale width and height
+    new_width = dict["width"] / width * factor_x
+    new_height = dict["height"] / height * factor_y
+
+
+    # calculate new center
+    center_x = new_center_x - (new_width / 2)
+    center_y = new_center_y - (new_height / 2)
     
+    # normalize
     center_x /= width
     center_y /= height
+
     
-    width_bb = dict["width"] / width
-    height_bb = dict["height"]/ height
-    
-    return BoundingBox(center_x,center_y,width_bb,height_bb)
+    return BoundingBox(center_x,center_y,new_width,new_height)
 
 
 def convert_to_coco_format(json_data) -> [AnnotationsVideo]:
-    width, height = json_data["media_attributes"]["width"],json_data["media_attributes"]["height"]
+    #width, height = json_data["media_attributes"]["width"],json_data["media_attributes"]["height"]
+    width, height = 1920,1200
     frames = json_data["projects"]['clor41l0i03gi07znfo8051e3']["labels"][0]["annotations"]["frames"]
     annotations = []
     for frame in frames:
@@ -108,9 +138,7 @@ def convert_to_coco_format(json_data) -> [AnnotationsVideo]:
     return annotations
     
 
-import os
-import ffmpeg
-import subprocess
+import os, ffmpeg, subprocess
 
 def extract_frames(input_file, output_directory,video_id):
     # Create output directory if it doesn't exist
@@ -157,9 +185,9 @@ def create_directory(directory_path):
     
     
 if __name__ == "__main__":
-    dataset_dir = "D:/SP_ML4IM/insects"
-    video_dir = "D:/SP_ML4IM/videos"
-    anotation_location = "D:/SP_ML4IM/export-result.ndjson"
+    dataset_dir = "D:/studyproject_machine_learning/insects"
+    video_dir = "D:/studyproject_machine_learning/videos"
+    anotation_location = "D:/studyproject_machine_learning/export-result.ndjson"
     
     data = read_ndjson(anotation_location)
     

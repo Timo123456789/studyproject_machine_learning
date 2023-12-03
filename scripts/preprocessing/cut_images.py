@@ -1,9 +1,11 @@
 import cv2
 import os
 
+# this script is for cutting single images
+
 # setup
-image_dir = 'D:/SP_ML4IM/insects/train/images'
-image_rgb_dir = 'D:/SP_ML4IM/insects/train/images_rgb'
+image_dir = 'D:/studyproject_machine_learning/insects/train/images'
+image_rgb_dir = 'D:/studyproject_machine_learning/insects/train/images_rgb'
 
 # Liste alle Dateien im Ordner "images"
 image_files = os.listdir(image_dir)

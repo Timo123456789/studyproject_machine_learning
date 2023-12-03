@@ -1,8 +1,10 @@
 import cv2
 
+# this script lays a bounding box over an image
+
 # input
-image_dir = 'D:/SP_ML4IM/insects/train/images_rgb/img_001_003923.png'
-label_dir = 'D:/SP_ML4IM/insects/train/labels_rgb/img_001_003923.txt' 
+image_dir = 'D:/studyproject_machine_learning/insects/train/images/img_001_003923.png'
+label_dir = 'D:/studyproject_machine_learning/insects/train/labels/img_001_003923.txt' 
 
 # Bild laden
 image = cv2.imread(image_dir)
@@ -14,6 +16,7 @@ with open(label_dir, 'r') as f:
 
 # Bounding-Boxen zeichnen
 for box in boxes:
+    print(box)
     t, x, y, w_box, h_box = map(float, box.strip().split())
     x1 = int((x - w_box / 2) * w)
     y1 = int((y - h_box / 2) * h)

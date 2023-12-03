@@ -1,6 +1,8 @@
 16mm_dvs-30_basler-70_combined_veryslow
 insects
 videos
+videos_raw
+videos_dvs
 yolo7
 export-result.ndjson
 test.ndjson
