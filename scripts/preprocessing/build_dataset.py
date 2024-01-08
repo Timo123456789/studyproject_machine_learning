@@ -1,4 +1,9 @@
 import json
+import numpy as np
+import cv2
+import os
+import subprocess
+import ffmpeg
 
 def read_ndjson(path):
     return [json.loads(line) for line in open(path, 'r')]
@@ -81,45 +86,82 @@ class AnnotationsVideo:
             res += bb.__str__() +"\n"
         return res
     
-def labelbox_bb_to_yolo(dict, width, height):
-    # shrink factor
-    factor_x = 0.97
-    factor_y = 0.89
+def labelbox_bb_to_yolo(dict, imageWidth, imageHeight):
 
-    # calculate center
-    center_x = dict["left"] + (dict["width"] /2)
-    center_y = dict["top"] + (dict["height"] /2)
-    # calculate image center
-    img_center_x = width / 2
-    img_center_y = height / 2
-
-    # calculate difference between image center and bounding box center
-    diff_x = center_x - img_center_x
-    diff_y = center_y - img_center_y
-
-    # scale difference
-    diff_x *= factor_x
-    diff_y *= factor_y
-
-    # add difference to image center
-    new_center_x = img_center_x + diff_x
-    new_center_y = img_center_y + diff_y
-
-    # scale width and height
-    new_width = dict["width"] / width * factor_x
-    new_height = dict["height"] / height * factor_y
+    homogeneity_matrix = np.array([[1.4162952571336898e+00, -1.0272416855624227e-02, 5.6968813544405364e+01], 
+                                   [1.4842921663035491e-02, 1.3935753508359128e+00, 1.0792638259289236e+01],
+                                   [1.2498370634317314e-05, -6.2418078407251730e-07, 1.] ])
+    homogeneity_matrix = np.linalg.inv(homogeneity_matrix)
 
 
-    # calculate new center
-    center_x = new_center_x - (new_width / 2)
-    center_y = new_center_y - (new_height / 2)
+    bb  = np.array([dict["left"],
+                    dict["top"], #y
+                    dict["width"], #width
+                    dict["height"]]) #height
+
+    # mirror bounding box vertical
+    bb[0] = imageWidth - bb[0]
+
+
+    # transform coordinates with homogeneity matrix ---------------------------------------------------------------------------------------------
+    # substract half width and height
+    bb[0] -= round(imageWidth / 2) #x
+    bb[1] -= round(imageHeight / 2) #y
+
+    # Convert to 4 point coordinates
+    bb_coords = np.array([[bb[0], bb[1], 1], 
+                         [bb[0] + bb[2], bb[1], 1], 
+                         [bb[0], bb[1] + bb[3], 1], 
+                         [bb[0] + bb[2], bb[1] + bb[3], 1]], dtype=np.float32)
+    
+    # Transform the corner points
+    bb_transform = np.array([np.dot(homogeneity_matrix,bb_coords[0]),
+                        np.dot(homogeneity_matrix,bb_coords[1]),
+                        np.dot(homogeneity_matrix,bb_coords[2]),
+                        np.dot(homogeneity_matrix,bb_coords[3])])
     
     # normalize
-    center_x /= width
-    center_y /= height
+    bb_transform = bb_transform / bb_transform[:, 2].reshape(-1, 1)
+
+    # cut third dimension
+    bb_transform = bb_transform[:, :2]
+
+    # Calculate minimum and maximum values for x and y
+    min_x, min_y = np.min(bb_transform, axis=0)
+    max_x, max_y = np.max(bb_transform, axis=0)
+    new_width = max_x - min_x
+    new_height = max_y - min_y
 
     
-    return BoundingBox(center_x,center_y,new_width,new_height)
+    # New Bounding Box coordinates in the format (x, y, w, h)
+    bb = np.array([min_x, min_y, new_width, new_height])
+
+    # scale coordinates
+    
+    bb[0] *= 1.325
+    bb[1] *= 1.3
+
+    #add half width and height
+    bb[0] += round(imageWidth / 2)
+    bb[1] += round(imageHeight / 2)
+
+    # -------------------------------------------------------------------------------------------------------------------------------------------
+
+    """ # decrease coordinates
+    bb[0] -= bb[0] * 0.14
+    bb[1] -= bb[1] * 0.015 """
+
+    # convert center-based bounding-box
+    bb[0] += bb[2] / 2
+    bb[1] += bb[3] / 2
+
+    # Convert to percentages
+    bb[0] /= imageWidth
+    bb[1] /= imageHeight
+    bb[2] /= imageWidth
+    bb[3] /= imageHeight
+
+    return BoundingBox(bb[0], bb[1], bb[2], bb[3])
 
 
 def convert_to_coco_format(json_data) -> [AnnotationsVideo]:
@@ -136,9 +178,6 @@ def convert_to_coco_format(json_data) -> [AnnotationsVideo]:
             
         annotations.append(annotations_frame)
     return annotations
-    
-
-import os, ffmpeg, subprocess
 
 def extract_frames(input_file, output_directory,video_id):
     # Create output directory if it doesn't exist
@@ -172,7 +211,11 @@ def write_data_row(data_row:dict,video_id:int,dataset_dir:str, video_base_dir:st
     
     
     video_location = get_video_location(video_base_dir, data_row)
-    extract_frames(video_location,f"{dataset_dir}/{dir_name}/images",video_id)
+    # test if video exists
+    if not os.path.exists(video_location):
+        print(f"Video '{video_location}' does not exist")
+    else:
+        extract_frames(video_location,f"{dataset_dir}/{dir_name}/images",video_id)
     
 def create_directory(directory_path):
     # Check if the directory already exists
@@ -185,9 +228,9 @@ def create_directory(directory_path):
     
     
 if __name__ == "__main__":
-    dataset_dir = "insects"
-    video_dir = "videos"
-    anotation_location = "export-result.ndjson"
+    dataset_dir = "../../insects"
+    video_dir = "../../videos_new_cutted"
+    anotation_location = "../../export-result_11-12-23.ndjson"
     
     data = read_ndjson(anotation_location)
     
