@@ -146,11 +146,6 @@ def labelbox_bb_to_yolo(dict, imageWidth, imageHeight):
     bb[1] += round(imageHeight / 2)
 
     # -------------------------------------------------------------------------------------------------------------------------------------------
-
-    """ # decrease coordinates
-    bb[0] -= bb[0] * 0.14
-    bb[1] -= bb[1] * 0.015 """
-
     # convert center-based bounding-box
     bb[0] += bb[2] / 2
     bb[1] += bb[3] / 2
@@ -192,14 +187,12 @@ def pick_n_random_items(input_list, n):
     # Ensure n is not greater than the length of the input list
     n = min(n, len(input_list))
 
-    # Use random.sample to pick n items randomly
-    picked_items = sample(input_list, n)
+    # pick n random numbers between 0 and length of input_list
+    val_indices = sample(range(0, len(input_list)), n)
+    # get all indices that were not for validating
+    train_indices = [i for i in range(0, len(input_list)) if i not in val_indices]
 
-    # Create a list of non-picked items
-    non_picked_items = [item for item in input_list if item not in picked_items]
-
-    # Return a tuple containing the picked items and non-picked items
-    return picked_items, non_picked_items
+    return val_indices, train_indices
 
 
 def write_data_row(data_row:dict,video_id:int,dataset_dir:str, video_base_dir:str, isTraining: bool = True):
@@ -257,13 +250,17 @@ names: ['insect']
         
     
     
-    
-    val_videos, training_videos = pick_n_random_items(data,5)
-    
-    for i in range(len(training_videos)):
-        write_data_row(data[i],(i+1),dataset_dir,video_dir)
+    val_indices, train_indices = pick_n_random_items(data,5)
+    print("Validation indices:", val_indices, "\nTraining indices:", train_indices)
 
-    
-    for i in range(len(val_videos)):
+    # write data rows for each val index
+    print("Writing validation data rows...")
+    for i in val_indices:
+        print(i)
         write_data_row(data[i],(i+1),dataset_dir,video_dir, False)
+
+    # write data rows for each train index
+    print("Writing training data rows...")
+    for i in train_indices:
+        write_data_row(data[i],(i+1),dataset_dir,video_dir)
     
