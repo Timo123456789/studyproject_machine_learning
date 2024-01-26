@@ -94,7 +94,7 @@ def labelbox_bb_to_yolo(dict, imageWidth, imageHeight):
     homogeneity_matrix = np.linalg.inv(homogeneity_matrix)
 
 
-    bb  = np.array([dict["left"],
+    bb  = np.array([dict["left"], #x
                     dict["top"], #y
                     dict["width"], #width
                     dict["height"]]) #height
@@ -184,15 +184,40 @@ def extract_frames(input_file, output_directory,video_id):
 from random import sample 
 
 def pick_n_random_items(input_list, n):
+    # define list of vids
+    videos = [[0,1,2,3],
+              [4,5,6,7],
+              [8,9,10],
+              [11,12,13,14,15,16],
+              [17,18,19,20,21,22],
+              [23,24,25],
+              [26,27],
+              [28,29],
+              [30,31,32],
+              [33]]
+
     # Ensure n is not greater than the length of the input list
     n = min(n, len(input_list))
 
     # pick n random numbers between 0 and length of input_list
-    val_indices = sample(range(0, len(input_list)), n)
+    val_indices = sample(range(0, 10), n)
     # get all indices that were not for validating
-    train_indices = [i for i in range(0, len(input_list)) if i not in val_indices]
+    train_indices = [i for i in range(0, 10) if i not in val_indices]
 
-    return val_indices, train_indices
+    indices = [i for i in range(0, len(input_list))] 
+    
+    # add tupel for every index if its in train or val
+    # 0 = train, 1 = val
+    for i in range(0, 10):
+        if i in val_indices:
+            for i in videos[i]:
+                indices[i] = (i,1)
+        else:
+            for i in videos[i]:
+                indices[i] = (i,0)
+        
+
+    return indices
 
 
 def write_data_row(data_row:dict,video_id:int,dataset_dir:str, video_base_dir:str, isTraining: bool = True):
@@ -223,7 +248,7 @@ def create_directory(directory_path):
 if __name__ == "__main__":
     dataset_dir = "../../insects"
     video_dir = "../../videos_new_cutted"
-    anotation_location = "../../export-result_11-12-23.ndjson"
+    anotation_location = "./export-result_11-12-23.ndjson"
     
     data = read_ndjson(anotation_location)
     
@@ -250,17 +275,15 @@ names: ['insect']
         
     
     
-    val_indices, train_indices = pick_n_random_items(data,5)
-    print("Validation indices:", val_indices, "\nTraining indices:", train_indices)
+    indices = pick_n_random_items(data,3) # pick of 10 vids 3 for validation
+    print(indices)
 
-    # write data rows for each val index
-    print("Writing validation data rows...")
-    for i in val_indices:
+    for i in indices:
         print(i)
-        write_data_row(data[i],(i+1),dataset_dir,video_dir, False)
-
-    # write data rows for each train index
-    print("Writing training data rows...")
-    for i in train_indices:
-        write_data_row(data[i],(i+1),dataset_dir,video_dir)
+        if i[1] == 1:
+            print("val")
+            write_data_row(data[i[0]],(i[0]+1),dataset_dir,video_dir, isTraining=False)
+        else:
+            print("train")
+            write_data_row(data[i[0]],(i[0]+1),dataset_dir,video_dir)
     
