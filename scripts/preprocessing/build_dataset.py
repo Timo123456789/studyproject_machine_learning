@@ -246,9 +246,9 @@ def create_directory(directory_path):
     
     
 if __name__ == "__main__":
-    dataset_dir = "../../insects"
-    video_dir = "../../videos_new_cutted"
-    anotation_location = "./export-result_11-12-23.ndjson"
+    dataset_dir = "/scratch/tmp/t_liet02/insects"
+    video_dir = "/scratch/tmp/t_liet02/videos_output_backSub"
+    anotation_location = "/scratch/tmp/t_liet02/annotations/export-result_11-12-23_HL.ndjson"
     
     data = read_ndjson(anotation_location)
     

@@ -152,8 +152,8 @@ def time_offset_by10(vid, name, output_path):
 
 if __name__ == "__main__":
     # Setup
-    video_dir = "videos_new_cutted/"
-    output_dir = '../../../../scratch/tmp/melfers/videos_new_hsvHUE/'
+    video_dir = '/scratch/tmp/t_liet02/videos_dez_new'
+    output_dir = '/scratch/tmp/t_liet02/videos_output_backSub'
     # video_dir = "../../videos_new_cutted/"
     # output_dir = '../../videos_new_test/'
 
@@ -175,7 +175,7 @@ if __name__ == "__main__":
         # Für jede Datei im Ordner
         for video_file in os.listdir(video_dir_deep):
             vid_file = os.path.join(video_dir_deep, video_file)
-            rgbToHsv(vid_file, video_file, output_dir_deep)
+            background_Sub(vid_file, video_file, output_dir_deep)
 
 
 
