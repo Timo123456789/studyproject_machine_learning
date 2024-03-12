@@ -1,0 +1,227 @@
+%!TEX root = Final_Assignment_SP_ML4IM_2023.tex
+% Author: Jannes Bantje
+% Modified: Lars Haalck lars.haalck@uni-muenster.de
+% please ask Lars Haalck first if you have any questions
+
+\documentclass[%
+a4paper,
+parskip=half,
+index=totoc,
+toc=listof,
+fontsize=11,
+headinclude,
+twoside,
+BCOR=12mm,
+cleardoublepage=empty,
+DIV=13,
+% draft=false,
+final
+]{scrreprt}
+
+
+\usepackage[usenames,x11names]{xcolor}
+\usepackage[final]{graphicx}
+\usepackage{subcaption}
+\usepackage{datetime}
+\usepackage{wrapfig}
+
+% typographic settings, fonts, and math
+\usepackage[utf8]{inputenc}
+\usepackage[semibold]{libertine}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp} % verhindert ein paar Fehler bei den Fonts
+\usepackage[varl]{zi4}
+\usepackage{mathtools,amssymb,amsthm} % Verbesserung von amsmath (die amsmath selbst lädt)
+\usepackage[libertine,cmintegrals,bigdelims,varbb]{newtxmath}
+\usepackage[english]{babel}
+\usepackage[babel=true, tracking=true,final]{microtype}
+
+
+
+% set line spacing
+\usepackage{setspace}
+% for example 1.5 line spacing
+\onehalfspacing{}
+
+% literature settings
+\usepackage[%
+backend=biber,
+sortlocale=auto,
+natbib,
+hyperref,
+backref,
+mincitenames=1,
+maxcitenames=1,
+style=ieee
+]%
+{biblatex}
+\addbibresource{literature.bib} % sets literature file
+
+% hyperref settings to make links clickable in PDF
+\usepackage[%
+hidelinks,
+pdfpagelabels,
+bookmarksopen=true,
+bookmarksnumbered=true,
+linkcolor=black,
+urlcolor=SkyBlue2,
+plainpages=false,
+pagebackref,
+citecolor=black,
+hypertexnames=true,
+pdfborderstyle={/S/U},
+linkbordercolor=SkyBlue2,
+colorlinks=false,
+backref=false,
+pdfencoding=auto,
+psdextra
+]{hyperref}
+\hypersetup{final}
+
+% enumeration settings
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate,description]{font=\sffamily\bfseries} % makes labels in enumeration bold
+\usepackage{csquotes}
+
+\usepackage{ifdraft}
+\setlength{\marginparwidth}{2.0cm}
+\ifoptionfinal{}{
+    % enable this line to better visualize overflows
+    % \PassOptionsToPackage{showframe}{geometry}
+
+    \paperwidth=\dimexpr\paperwidth+3cm\relax{}
+    \oddsidemargin=\dimexpr\oddsidemargin+0cm\relax{}
+    \evensidemargin=\dimexpr\evensidemargin+3cm\relax{}
+    \setlength{\marginparwidth}{2.5cm}
+}
+
+\usepackage[pass]{geometry}
+% allows adding of todo notes at the side of the document
+\usepackage[obeyFinal,textsize=small,textwidth=2.5cm]{todonotes}
+
+% settings for the header and footer
+\usepackage[headsepline=1pt]{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\clearpairofpagestyles{} % clear defaults
+\setkomafont{headsepline}{\color{gray}} % adds a gray line under the header
+
+% set section title on the right, and chapter title on the left page in a double page
+% document
+\automark[section]{chapter}
+
+\rohead{\rightmark} % section title on the right side
+\lehead{\scshape\leftmark} % chapter title on the left side an in small caps
+\ofoot[\pagemark]{\pagemark} % page marks always on the outer site of the page
+
+% sets page marks and footer and header texts to sans-serif in gray
+\renewcommand*{\pnumfont}{\sffamily}
+\renewcommand*{\footfont}{\sffamily\color{gray}}
+\renewcommand*{\headfont}{\sffamily\color{gray}}
+
+% change the chapter, section and subsection font sizes and spacings a bit for a5 format
+% \setlength{\footskip}{1.75\baselineskip} % change the spacing a bit for a5 format
+% \RedeclareSectionCommand[%
+% afterskip=1\baselineskip,%
+% beforeskip=-1\baselineskip]{chapter}
+
+% \setkomafont{chapter}{\LARGE}
+% \setkomafont{section}{\Large}
+% \setkomafont{subsection}{\large}
+
+% adds a thick gray line after the chapter number
+\renewcommand*{\chapterformat}{%
+    \thechapter\enskip{}
+    \textcolor{gray!50}{\rule[-\dp\strutbox]{1.5pt}{\baselineskip}}\enskip{}
+}
+
+% math environments
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{mdframed}
+\usepackage{blindtext}
+\renewcommand{\listtheoremname}{Übersicht aller Aussagen}
+
+% -- Theoreme als PDF-Lesezeichen
+\usepackage{bookmark}
+\bookmarksetup{open,numbered}
+\makeatletter
+\newcommand*{\theorembookmark}{%
+   \bookmark[
+     dest=\@currentHref,
+     rellevel=1,
+     keeplevel,
+   ]{%
+     \thmt@thmname\space\csname the\thmt@envname\endcsname
+     \ifx\thmt@shortoptarg\@empty{}
+     \else
+       \space(\thmt@shortoptarg)%
+     \fi
+   }%
+}
+\makeatother
+
+% -- Definition der einzelnen Umgebungen
+\declaretheoremstyle[%
+     headfont=\sffamily\bfseries,
+     notefont=\normalfont\sffamily,
+     bodyfont=\normalfont,
+     headformat=\NAME\ \NUMBER\NOTE,
+     headpunct=,
+     postheadspace=\newline,
+     spaceabove=\parsep,spacebelow=\parsep,
+     %shaded={bgcolor=gray!20},
+     postheadhook=\theorembookmark,
+     mdframed={
+         backgroundcolor=gray!20,
+             linecolor=gray!20,
+             innertopmargin=6pt,
+             roundcorner=5pt,
+             innerbottommargin=6pt,
+             skipbelow=\parsep,
+             skipbelow=\parsep}
+     ]%
+{mainstyle}
+
+\declaretheoremstyle[%
+     headfont=\sffamily\bfseries,
+     notefont=\normalfont\sffamily,
+     bodyfont=\normalfont,
+     headformat=\NAME\ \NUMBER\NOTE,
+     headpunct=,
+     postheadspace=\newline,
+     spaceabove=15pt,spacebelow=10pt,
+     postheadhook=\theorembookmark]%
+{mainstyle_unshaded}
+
+\declaretheoremstyle[%
+     headfont=\sffamily\bfseries,
+     notefont=\normalfont\sffamily,
+     bodyfont=\normalfont,
+     headformat=\NUMBER\NAME\NOTE,
+     headpunct=,
+     postheadspace=\newline,
+     spaceabove=15pt,spacebelow=10pt,
+     % shaded={bgcolor=gray!20},
+     postheadhook=\theorembookmark]%
+{mainstyle_unnumbered}
+
+\declaretheorem[name=Definition,parent=section,style=mainstyle]{definition}
+\declaretheorem[name=Definition,numbered=no,style=mainstyle]{definition*}
+\declaretheorem[name=Definition,sharenumber=definition,style=mainstyle_unshaded]{definitionUnshaded}
+
+\declaretheorem[name=Theorem,sharenumber=definition,style=mainstyle]{theorem}
+\declaretheorem[name=Theorem,numbered=no,style=mainstyle_unnumbered]{theorem*}
+
+\declaretheorem[name=Proposition,sharenumber=definition,style=mainstyle]{proposition}
+\declaretheorem[name=Lemma,sharenumber=definition,style=mainstyle]{lemma}
+
+\declaretheorem[name=Satz,sharenumber=definition,style=mainstyle]{satz}
+\declaretheorem[name=Satz,sharenumber=definition,style=mainstyle_unshaded]{satzUnshaded}
+\declaretheorem[name=Satz,numbered=no,style=mainstyle_unnumbered]{satz*}
+
+\declaretheorem[name=Korollar,sharenumber=definition,style=mainstyle]{korollar}
+
+\declaretheorem[name=Notation,numbered=no,style=mainstyle_unnumbered]{notation}
+\declaretheorem[name=Bemerkung,numbered=no,style=mainstyle_unnumbered]{bemerkung}
+\declaretheorem[name=Beispiel,numbered=no,style=mainstyle_unnumbered]{beispiel}
+\declaretheorem[name=Beispiele,numbered=no,style=mainstyle_unnumbered]{beispiele} 

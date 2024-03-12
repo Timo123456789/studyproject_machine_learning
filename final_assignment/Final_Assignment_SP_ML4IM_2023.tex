@@ -1,0 +1,74 @@
+% Author: Jannes Bantje
+% Modified: Lars Haalck lars.haalck@uni-muenster.de
+% please ask Lars Haalck first if you have any questions
+\input{preamble.tex}
+
+%Informationen zur Arbeit
+\newcommand{\printnameHendrik}{Hendrik Lüning}
+\newcommand{\printnumberHendrik}{514 910}
+
+\newcommand{\printnameMaxi}{Maximilian Elfers}
+\newcommand{\printnumberMaxi}{??? ???}
+
+\newcommand{\printnameTimo}{Timo Lietmeyer}
+\newcommand{\printnumberTimo}{??? ???}
+
+\newcommand{\printtitle}{Final Assignment \\ Study Project: Machine Learning meets Insect Monitoring}
+\newcommand{\printcity}{Münster}
+\newcommand{\printcourse}{Study Project: Machine Learning meets Insect Monitoring}
+\newcommand{\printFirstLecturer}{Dr.\ Benjamin Risse}
+\newcommand{\printSecondLecturer}{Sebastian Thiele}
+\newcommand{\printterm}{WS 2023/2024}
+\newcommand{\printinstitute}{Institute for Geoinformatics}
+
+% !!!only for pseudo text, can be deleted!!!
+\usepackage{blindtext}
+
+\begin{document}
+% set the pager numbering to big roman numbers for firt few pages
+\pagenumbering{Roman}
+\listoftodos% remove this line when you are done with the document
+
+% titlepage does not need cleardoubleoddemptypage
+\begin{titlepage}
+	\input{chapter/title_page.tex}
+\end{titlepage}
+
+\tableofcontents
+%\cleardoubleoddemptypage{}
+
+% set the page numbering back to arabic
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\input{chapter/introduction.tex}
+%\cleardoubleoddemptypage{}
+
+\input{chapter/related_work.tex}
+%\cleardoubleoddemptypage
+
+\input{chapter/fundamentals.tex}
+%\cleardoubleoddemptypage
+
+\input{chapter/methods.tex}
+%\cleardoubleoddemptypage
+
+\input{chapter/results.tex}
+%\cleardoubleoddemptypage{}
+
+\input{chapter/discussion.tex}
+%\cleardoubleoddemptypage{}
+
+\input{chapter/contributions.tex}
+%\cleardoubleoddemptypage{}
+
+\listoffigures
+%\cleardoubleoddemptypage{}
+
+\listoftables
+%\cleardoubleoddemptypage{}
+
+\printbibliography{}
+%\cleardoubleoddemptypage{}
+\input{chapter/signature.tex}
+
+\end{document}
