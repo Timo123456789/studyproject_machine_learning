@@ -15,7 +15,9 @@
 		\includegraphics*[scale = 1, keepaspectratio, trim=2 2 2 2 ]{images/YOLO/YOLO_detection_system.png}
 		\caption[Das YOLO Objekterkennungsystem]{Das YOLO Objekterkennungsystem \citep{Redmon2016}}
 		\label{YOLO_Objectdetection}
- 	\end{figure}\glqq You Only Look Once\grqq{} (YOLO) betrachtet Objekterkennung als einzelnes Regressionsproblem, indem direkt von Bildpixel zu Boundingbox Koordinaten und Klassenwahrscheinlichkeiten berechnet wird. Dieser Algorithmus analysiert nur einmal ein Bild und sagt direkt vorher, welche Objekte wo vorhanden sind. Dadurch ist die Komplexität des  Aufbaus von YOLO sehr gering, wie in Abb. \ref{YOLO_Objectdetection} zu sehen \citep{Redmon2016}. \\
+ 	\end{figure}
+	
+	\glqq You Only Look Once\grqq{} (YOLO) betrachtet Objekterkennung als einzelnes Regressionsproblem, indem direkt von Bildpixel zu Boundingbox Koordinaten und Klassenwahrscheinlichkeiten berechnet wird. Dieser Algorithmus analysiert nur einmal ein Bild und sagt direkt vorher, welche Objekte wo vorhanden sind. Dadurch ist die Komplexität des  Aufbaus von YOLO sehr gering, wie in Abb. \ref{YOLO_Objectdetection} zu sehen \citep{Redmon2016}. \\
 	Die Performance zur Objekterkennung wird durch das Training von YOLO mit vollständigen Bildern gesteigert. Durch dieses vereinheitlichte Modell entstehen mehrere Vorteile gegenüber den traditionellen Objekterkennungssystemen \citep{Redmon2016}. \\
 	Der erste Vorteil von YOLO ist die gesteigerte Performance. Dies wird dadurch ermöglicht, dass Objekterkennung auf Bildern als Regressionproblem betrachtet wird und deshalb keine komplexe Pipeline die Verarbeitung eines Bildes verlangsamt.  \citep{Redmon2016}. 
 	Zweitens analysiert YOLO ein Bild global mit Vorhersagen zur Objekterkennung. Dadurch kann YOLO den Fehler beim Verwechseln von Hintergrund und Objekten im Vordergrund um die Hälfte im Vergleich zu Fast R-CNN verringern. Dies geschieht vor allem durch den größeren Kontext, den YOLO durch die Gesamtbildanalyse gewinnt \citep{Redmon2016}. \\
@@ -26,15 +28,13 @@
 	YOLO unterteilt in Bild in $S \times S $ Rasterzellen. Wenn der Mittelpunkt eines Objektes in eine Rasterzelle fällt, ist diese für die Erkennung des Objektes zuständig. Boundingboxen und ihre jeweiligen Confidence Scores werden für jede Rasterzelle vorhergesagt \citep{Redmon2016}.
 	Der Confidence Score beschreibt, wie sicher sich das Modell ist, dass die Boundingbox ein Objekt dieser Klasse enthält und für wie genau das Modell diese Vorhersage hält. \\
 	Dieser Wert enthält nicht nur die Wahrscheinlichkeit, dass diese Klasse in der Boundingbox vorkommt, sondern auch wie gut die vorhergesagte Box mit dem detektierten Objekt übereinstimmt. Ein Beispielablauf ist in Abb. \ref{YOLO_Model} zu sehen.
+
 	\begin{figure}[ht]
 		\centering
 		\includegraphics*[scale = 2, keepaspectratio, trim=2 2 2 2 ]{images/YOLO/YOLO_model.png}
 		\caption[Das YOLO Modell]{Das YOLO Modell\citep{Redmon2016}}
 		\label{YOLO_Model}
  	\end{figure}
-
-	
-
 
 	Da jede Rasterzelle nur 2 Boundingboxenvorhersagen und eine Klasse haben kann, unterliegt YOLO einer räumlichen Einschränkung. Dies begrenzt die Anzahl der benachbarten Objekte, die das Modell vorhersagen kann. Außerdem ist es für das Modell schwierig, kleine Objekte, die in Gruppen auftreten, zu detektieren \citep{Redmon2016}. \\
 	Eine weitere Herausforderung ist, dass Objekte mit neuen oder ungewöhnlichen Formen auftreten können und dadurch die Vorhersage erschwert wird. Da die Netzwerkarchitektur aus mehreren \glqq Downsampling\grqq{}-Schichten besteht, benutzt das Modell relativ grobe Features zur Vorhersage der Boundingboxen \citep{Redmon2016}. \\
@@ -48,12 +48,14 @@
 	
 	Im Januar 2023 wurde von der Firma Ultralytics YOLOv8 veröffentlicht, welches auf YOLOv5 basiert. Diese Version beinhaltet 5 verschiedene Modelle (YOLOv8n (nano), YOLOv8s (small), YOLOv8m (medium), YOLOv8l (large), YOLOv8x (extra large)), die mit unterschiedlich großen Datensätzen trainiert wurden  \citep{Terven2023}. \\	
 	Ein Vorteil dieser YOLO Implementierung ist, dass verschiedene Varianten für Ob\-jekt\-det\-ekt\-ion, -seg\-men\-tier\-ung und -ver\-fol\-gung, sowie -klas\-si\-fi\-zier\-ung existieren. In dieser Arbeit wird hauptsächlich die \glqq -seg\grqq{}-Variante verwendet, welches bereits eine Segmentierung der Umrisse der detektierten Objekte integriert hat.
+
 	\begin{figure}[h]
 		\centering
 		\includegraphics*[scale = 0.20, keepaspectratio]{images/YOLO/YOLOv8_object_detector_general.png}
 		\caption[Architektur modernen Objektdetektoren]{Architektur modernen Objektdetektoren \citep{Terven2023}}
 		\label{YOLO_obj_det_gen}
 	\end{figure}
+
 	Die Architektur dieser Algorithmen kann man in 3 Teile aufteilen (s. Abb. \ref{YOLO_obj_det_gen}). Diese sind der Backbone, der Neck und der Head \citep{Terven2023}. \\
 	Das Detektieren nützlicher Features vom Eingabebild geschieht im Backbone, welcher meist als CNN implementiert ist \citep{Terven2023}. \\
 	Zwischen Backbone und Head wird der Neck eingesetzt, um die Features, die der Backbone ausgibt, zu aggregieren und zu verfeinern. Der Fokus liegt auf der Verbesserung der räumlichen und semantischen Informationen über die unterschiedlichen Skalierungen hinweg \citep{Terven2023}. \\
@@ -73,3 +75,11 @@
 		Diese Bibliothek beinhaltet Algorithmen zur Bild- und Videobearbeitung. In dieser Arbeit wird diese Bibliothek zur Manipulation von Frames in Videos genutzt, die zuvor mit YOLO analysiert wurden. 
 		}
 		
+
+\section{The camera trap}
+
+\begin{itemize}
+	\item what is a camera trap
+	\item how does it work
+	\item the two cameras (rgb and event stream(?))
+\end{itemize}
