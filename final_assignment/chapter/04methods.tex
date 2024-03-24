@@ -6,7 +6,47 @@
 % NOT FINAL - unsure about section structure and names
 % hendrik und maxi
 
-\section{Converting Bounding boxes}
+
+The scope of this project is to create a model which is abale to detect insects in a video stream. To achive this goal, a combination of computer vision methods was used to preprocess the video stream. The following sections will describe the all methods used in this project.
+
+The generell workflow for this project was to first collect (and label) and then to preprocess the data using computer vision methods. After that the data was converted to a typ usable for YOLO and finally a model was trained on the preprocessed data. The preprocessing and training was a iterative process to find the best possible model.
+
+\section{Data Collection}
+
+The collection of the raw video stream, containing the DVS and RGB streams, was done by team CVMLS of Prof. Dr. Benjamin Risse from the Institute of Geoinformatics at the University of Münster.
+
+The provided datasets were then labeled by all students of the study project "Machine learning meets insect monitoring" in the winter semester 2023/2024. The labeling was done using labelbox, a platform for labeling images and videos. 
+
+At the end of the data collection phase there were 34 videos, containing both streams stack on top of each other (later individual videos for each stream), with corresponding labels. The labels were in the form of bounding boxes around the insects in the video.
+
+\section{Data Preprocessing}
+
+The proprocessing of the video streams was done using computer vision methods provided by the OpenCV library. Our group was tasked with the preprocessing of the RGB stream.\\
+Note that all of the following methods were not used in the sequence they are presented here and also are not all used in the same preprocessing. These are the basic methods used for different preprocessings or in combination with each other, but never all at the same time.\\
+To see all used combinations see Chapter~\ref{chap:results}.
+
+\textbf{Substraction} \\
+The substraction is the simple method of substracting one image from another. The idea behind this was to subtract the background of the images and only keep the moving parts.\\
+The results were a black and white image that showed the difference between the two images.\\
+% Platzhalter für Bild
+
+\textbf{Background Subtraction} \\
+The background subtraction method is a more advanced version of the substraction method. The idea was again to remove the background from the image. Here you dont substract the two consecutive images but rather have a background model that is subtracted from the image.\\
+This Method is somewhat comparable with the dvs stream, as it also only shows the moving parts of the image.\\
+% Platzhalter für Bild
+
+\textbf{RGB to HSV} \\
+The RGB to HSV method converts the RGB image to a HSV image. The HSV color space is a cylindrical color space containing three components: hue, saturation, and value. The idea behind this method was to have another color space to work with.\\
+This also allows to change each component individually, for example enhance the saturation.\\
+% Platzhalter für Bild
+
+\textbf{Time offset} \\
+Time offset is a method to create each frame from three images (each gets its own channel) which have a time offeset. This offest can range from just one frame to multiple frames. The idea behind this method was to capture the movement of the insects. The more frames are between the iamges the bigger is the captured movement. This also creates a change to capture insects that are sitting still for a certain amount of time.\\
+% Platzhalter für Bild
+
+\section{Data Processing}
+
+\section{Converting Bounding boxes} % Müsstest nochmal schauen wie du es einbinden willst
 
 The process of adapting insect labels from DVS streams to RGB data involved several steps to ensure accurate alignment. First, bounding boxes were applied to the DVS data only. However, due to differences in image capture between the event-based camera and the RGB camera, as well as differences in resolution (1920x1200 for RGB versus 1280x720 for DVS), a conversion process was required.
 
@@ -17,14 +57,9 @@ Despite improvements, problems persisted, particularly at the edge of the image,
 Ultimately, the final conversion method used the homography matrix to adjust the data, with additional scaling along the x and y axes to ensure alignment. This approach effectively harmonised the insect labels between the DVS and RGB streams.
 
 
-\section{computer vision methods}
+% hier müsste der Code von Jakob kurz beschrieben werden 
+% Hier könnte auch die erklörung für die Bounding Boxen hin
 
-\subsection{Background subtraction}
+\section{Model Training}
 
-\subsection{RGB to HSV}
-
-\subsection{Image Subtraction}
-
-\subsection{Time offset}
-
-\subsection{Combination of Methods}
+% Hier müsste eine kurze Erklärung zum Training stehen
