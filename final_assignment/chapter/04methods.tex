@@ -6,7 +6,16 @@
 % NOT FINAL - unsure about section structure and names
 % hendrik und maxi
 
-\section{Palma ????}
+\section{Converting Bounding boxes}
+
+The process of adapting insect labels from DVS streams to RGB data involved several steps to ensure accurate alignment. First, bounding boxes were applied to the DVS data only. However, due to differences in image capture between the event-based camera and the RGB camera, as well as differences in resolution (1920x1200 for RGB versus 1280x720 for DVS), a conversion process was required.
+
+Several iterations of conversion were attempted before success was achieved. The first attempt involved a simple translation of the bounding boxes by one unit in the x and y axes. Subsequent analysis revealed that the DVS stream captured an enlarged section of the scene. To address this discrepancy, a second version of the conversion was devised that scaled the box coordinates relative to their proximity to the centre of the image.
+
+Despite improvements, problems persisted, particularly at the edge of the image, where distortion was more pronounced. As a result, a new approach was adopted using a homographic transformation to adjust for image distortion. This transformation produced a homography matrix that provided insight into the distortion between the RGB and DVS images.
+
+Ultimately, the final conversion method used the homography matrix to adjust the data, with additional scaling along the x and y axes to ensure alignment. This approach effectively harmonised the insect labels between the DVS and RGB streams.
+
 
 \section{computer vision methods}
 
