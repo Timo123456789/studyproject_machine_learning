@@ -8,6 +8,7 @@ videos_new_cutted
 yolo7
 export-result.ndjson
 test.ndjson
+insects_raw_bg_sub_time_offset1
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
