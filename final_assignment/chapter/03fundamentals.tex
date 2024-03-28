@@ -34,8 +34,8 @@
 
 	The architecture of this implementation can be divided into 3 parts. These are the backbone, the neck and the head \citep{Terven2023}. \\
 	The detection of useful features from the input image takes place in the backbone, which is usually implemented as a CNN \citep{Terven2023}. \\
-	The neck is used between the backbone and head to aggregate and refine the features that the backbone outputs. The focus is on improving the spatial and semantic information across the different scales \citep{Terven2023}. \\
-	The last component is the head, which makes predictions based on the features provided by the backbone and neck. Task-specific subnets are usually used here to perform classification, localisation and also immediate segmentation. From the features provided by the neck, the head makes predictions for each candidate object. A post-processing step, such as non-maximum suppression (NMS), filters out overlapping predictions so that only the most reliable detections are used \citep{Terven2023}.\\
+	The neck is used between the backbone and head to aggregate and refine the features that the backbone outputs \citep{Terven2023}. \\
+	The last component is the head, which makes predictions based on the features provided by the backbone and neck. A post-processing step, such as non-maximum suppression (NMS), filters out overlapping predictions so that only the most reliable detections are used \citep{Terven2023}.\\
 	To improve performance, especially for object recognition of smaller objects, YOLOv8 uses CloU \citep{Zheng2020} and DFL \citep{Li2020} loss functions for bounding boxloss and binary cross entropy for the classificationloss \citep{Terven2023}. 
 
 	This implementation is used in this project as it meets the requirements for precision and performance. 
