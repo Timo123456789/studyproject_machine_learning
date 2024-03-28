@@ -28,21 +28,42 @@ To see all used combinations see Chapter~\ref{chap:results}.
 \textbf{Substraction} \\
 The substraction is the simple method of substracting one image from another. The idea behind this was to subtract the background of the images and only keep the moving parts.\\
 The results were a black and white image that showed the difference between the two images.\\
-% Platzhalter für Bild
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_Sub.png}
+    \caption{The output of the subtraction preprocessing}
+\end{figure}
 
 \textbf{Background Subtraction} \\
 The background subtraction method is a more advanced version of the substraction method. The idea was again to remove the background from the image. Here you dont substract the two consecutive images but rather have a background model that is subtracted from the image.\\
 This Method is somewhat comparable with the dvs stream, as it also only shows the moving parts of the image.\\
-% Platzhalter für Bild
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_BackSub.png}
+    \caption{The output of the background subtraction preprocessing}
+\end{figure}
+
 
 \textbf{RGB to HSV} \\
 The RGB to HSV method converts the RGB image to a HSV image. The HSV color space is a cylindrical color space containing three components: hue, saturation, and value. The idea behind this method was to have another color space to work with.\\
 This also allows to change each component individually, for example enhance the saturation.\\
-% Platzhalter für Bild
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_HSV.png}
+    \caption{The output of the RGB to HSV preprocessing}
+\end{figure}
 
 \textbf{Time offset} \\
 Time offset is a method to create each frame from three images (each gets its own channel) which have a time offeset. This offest can range from just one frame to multiple frames. The idea behind this method was to capture the movement of the insects. The more frames are between the iamges the bigger is the captured movement. This also creates a change to capture insects that are sitting still for a certain amount of time.\\
-% Platzhalter für Bild
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_OffsetBy10.png}
+    \caption{The output of the time offset (by 10) preprocessing}
+\end{figure}
 
 \section{Data Processing}
 
