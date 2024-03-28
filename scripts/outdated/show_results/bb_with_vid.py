@@ -3,8 +3,8 @@ import glob
 import os
 
 # Ordnerpfade
-img_folder = '../../insects/train/images'
-bbox_folder = '../../insects/train/labels'
+img_folder = '../../../../scratch/tmp/melfers/insects_hsv/train/images'
+bbox_folder = '../../../../scratch/tmp/melfers/insects_hsv/train/labels'
 
 # Videoparameter
 fps = 100
