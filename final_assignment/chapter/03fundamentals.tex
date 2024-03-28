@@ -23,25 +23,24 @@
 	The first advantage of YOLO is the increased performance. This is made possible by the fact that object recognition on images is regarded as a regression problem and therefore no complex pipeline slows down the processing of an image.  \citep{Redmon2016}. 
 	Secondly, YOLO analyses an image globally with predictions for object detection. This allows YOLO to reduce the error of confusing background and foreground objects by half compared to Fast R-CNN. This is mainly due to the greater context that YOLO gains from the overall image analysis \citep{Redmon2016}. \\
 	The third advantage is that YOLO was trained with generalised representations of objects to increase the error tolerance when applying it to new domains and unexpected inputs, due to the possibility of high generalisation \citep{Redmon2016}. \\
-	One disadvantage of YOLO is its accuracy. The algorithm has difficulties in localising some objects, especially small ones \citep{Redmon2016}. \\
+	One disadvantage of YOLO is its accuracy. The algorithm has difficulties in localising some objects, especially small ones \citep{Redmon2016}. 
 
 	YOLOv8 from Ultralytics is used in this project. This offers advantages in terms of performance and accuracy of object detection and is explained in more detail in the next chapter. 
 	} 
 
 	\subsection{YOLOv8 von Ultralytics}{ \label{subsec:YOLOv8_theoretic}
 	
-	In January 2023, Ultralytics released YOLOv8, which is based on YOLOv5. This version contains 5 different models (YOLOv8n (nano), YOLOv8s (small), YOLOv8m (medium), YOLOv8l (large), YOLOv8x (extra large)), which were trained with data sets of different sizes \citep{Terven2023}. \\	
+	In January 2023, Ultralytics released YOLOv8, which is based on YOLOv5. This version contains 5 different models (YOLOv8n (nano), YOLOv8s (small), YOLOv8m (medium), YOLOv8l (large), YOLOv8x (extra large)), which were trained with data sets of different sizes \citep{Terven2023}. 	
 
 	The architecture of this implementation can be divided into 3 parts. These are the backbone, the neck and the head \citep{Terven2023}. \\
 	The detection of useful features from the input image takes place in the backbone, which is usually implemented as a CNN \citep{Terven2023}. \\
 	The neck is used between the backbone and head to aggregate and refine the features that the backbone outputs. The focus is on improving the spatial and semantic information across the different scales \citep{Terven2023}. \\
 	The last component is the head, which makes predictions based on the features provided by the backbone and neck. Task-specific subnets are usually used here to perform classification, localisation and also immediate segmentation. From the features provided by the neck, the head makes predictions for each candidate object. A post-processing step, such as non-maximum suppression (NMS), filters out overlapping predictions so that only the most reliable detections are used \citep{Terven2023}.\\
-	To improve performance, especially for object recognition of smaller objects, YOLOv8 uses CloU \citep{Zheng2020} and DFL \citep{Li2020} loss functions for bounding boxloss and binary cross entropy for the classificationloss \citep{Terven2023}. \\
+	To improve performance, especially for object recognition of smaller objects, YOLOv8 uses CloU \citep{Zheng2020} and DFL \citep{Li2020} loss functions for bounding boxloss and binary cross entropy for the classificationloss \citep{Terven2023}. 
 
 	This implementation is used in this project as it meets the requirements for precision and performance. 
 	}
 
-\section{OpenCV}
 
 \section{Computer Vision 2}
 		{ \label{subsec:Computer_Vision_2}

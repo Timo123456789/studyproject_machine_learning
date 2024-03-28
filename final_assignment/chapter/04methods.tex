@@ -23,57 +23,57 @@ At the end of the data collection phase there were 34 videos, containing both st
 
 The proprocessing of the video streams was done using computer vision methods provided by the OpenCV library. Our group was tasked with the preprocessing of the RGB stream.\\
 Note that all of the following methods were not used in the sequence they are presented here and also are not all used in the same preprocessing. These are the basic methods used for different preprocessings or in combination with each other, but never all at the same time.\\
-To see all used combinations see Chapter~\ref{chap:results}.
+To see all used combinations see Chapter~\ref{ch:results}.
 
-\textbf{Substraction} \\
+\subsubsection{Substraction} 
 The substraction is the simple method of substracting one image from another. The idea behind this was to subtract the background of the images and only keep the moving parts.\\
-The results were a black and white image that showed the difference between the two images.\\
+The results were a black and white image that showed the difference between the two images.
 
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_Sub.png}
+    \includegraphics[width=0.5\textwidth]{images/methods/img_002_002309_Sub.png}
     \caption{The output of the subtraction preprocessing}
 \end{figure}
 
-\textbf{Background Subtraction} \\
+\subsubsection{Background Subtraction} 
 The background subtraction method is a more advanced version of the substraction method. The idea was again to remove the background from the image. Here you dont substract the two consecutive images but rather have a background model that is subtracted from the image.\\
-This Method is somewhat comparable with the dvs stream, as it also only shows the moving parts of the image.\\
+This Method is somewhat comparable with the dvs stream, as it also only shows the moving parts of the image.
 
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_BackSub.png}
+    \includegraphics[width=0.5\textwidth]{images/methods/img_002_002309_BackSub.png}
     \caption{The output of the background subtraction preprocessing}
 \end{figure}
 
 
-\textbf{RGB to HSV} \\
+\subsubsection{RGB to HSV} 
 The RGB to HSV method converts the RGB image to a HSV image. The HSV color space is a cylindrical color space containing three components: hue, saturation, and value. The idea behind this method was to have another color space to work with.\\
-This also allows to change each component individually, for example enhance the saturation.\\
+This also allows to change each component individually, for example enhance the saturation.
 
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_HSV.png}
+    \includegraphics[width=0.5\textwidth]{images/methods/img_002_002309_HSV.png}
     \caption{The output of the RGB to HSV preprocessing}
 \end{figure}
 
-\textbf{Time offset} \\
-Time offset is a method to create each frame from three images (each gets its own channel) which have a time offeset. This offest can range from just one frame to multiple frames. The idea behind this method was to capture the movement of the insects. The more frames are between the iamges the bigger is the captured movement. This also creates a change to capture insects that are sitting still for a certain amount of time.\\
+\subsubsection{Time offset} 
+Time offset is a method to create each frame from three images (each gets its own channel) which have a time offeset. This offest can range from just one frame to multiple frames. The idea behind this method was to capture the movement of the insects. The more frames are between the iamges the bigger is the captured movement. This also creates a change to capture insects that are sitting still for a certain amount of time.
 
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{../images/img_002_002309_OffsetBy10.png}
+    \includegraphics[width=0.5\textwidth]{images/methods/img_002_002309_OffsetBy10.png}
     \caption{The output of the time offset (by 10) preprocessing}
 \end{figure}
 
 \section{Data Processing}
 
-After pre-processing the videos, the data was converted into a format that could be used to train a model. The videos are available as mp4 files and the labelbox data is available as an ndjson file. This ndjson contains information about the bounding box and its associated frame. The YOLO training algorithm requires the images and the bounding boxes to be in a specific format, which is performed by the build dataset script. The basic script to perform this data processing was written by Jakob Marten Danel, a fellow student in the Study Project, and has been adapted to the rgb data and also includes a bounding box conversion. \\
+After pre-processing the videos, the data was converted into a format that could be used to train a model. The videos are available as mp4 files and the labelbox data is available as an ndjson file. This ndjson contains information about the bounding box and its associated frame. The YOLO training algorithm requires the images and the bounding boxes to be in a specific format, which is performed by the build dataset script. The basic script to perform this data processing was written by Jakob Marten Danel, a fellow student in the Study Project, and has been adapted to the rgb data and also includes a bounding box conversion. 
 
-\textbf{Dataset building}
+\subsubsection{Dataset building}
 
-The build dataset script iterates through every video in the input folder and extracts the frames from the video. The script then checks if the frame is in the labelbox data and if so, it creates a txt file with the bounding box information. The script then moves the frame to the corresponding folder in the output folder. The aim is to have the videos as individual frames and the corresponding bounding boxes per frame in a txt file of the same name. In addition, the videos are randomly divided into training and validation data in a ratio of 80:20. A yaml file describes the folder structure and the locations where yolo finds the images and txt files. \\
+The build dataset script iterates through every video in the input folder and extracts the frames from the video. The script then checks if the frame is in the labelbox data and if so, it creates a txt file with the bounding box information. The script then moves the frame to the corresponding folder in the output folder. The aim is to have the videos as individual frames and the corresponding bounding boxes per frame in a txt file of the same name. In addition, the videos are randomly divided into training and validation data in a ratio of 80:20. A yaml file describes the folder structure and the locations where yolo finds the images and txt files. 
 
-\textbf{Converting Bounding boxes}
+\subsubsection{Converting Bounding boxes}
 
 The process of adapting insect labels from DVS streams to RGB data involved several steps to ensure accurate alignment. First, bounding boxes were applied to the DVS data only. Due to differences in image capture between the event-based camera and the RGB camera, as well as differences in resolution (1920x1200 for RGB versus 1280x720 for DVS), a conversion process was required.
 
@@ -87,4 +87,4 @@ Ultimately, the final conversion method used the homography matrix to adjust the
 
 The training of the models was done using YOLOv8, and was run on the HPC of the University of Münster called PALMA. It was conducted using the preprocessed data from the previous steps and the standard YOLOv8 model. \\
 To create comparable results, the training was done using the same parameters for all models. The training was done for 100 epochs with a patience of 25 and an image size of 640. The amount of devices used for the training was 2 to 4. \\ 
-The method behind the training was to create models from multiple different preprocessing workflows and then compare the results. This comparison was done using the mAP (mean average precision) score. The mAP score is a common metric used to evaluate object detection models. It is calculated by taking the average of the precision-recall curve.\\
+The method behind the training was to create models from multiple different preprocessing workflows and then compare the results. This comparison was done using the mAP (mean average precision) score. The mAP score is a common metric used to evaluate object detection models. It is calculated by taking the average of the precision-recall curve.
