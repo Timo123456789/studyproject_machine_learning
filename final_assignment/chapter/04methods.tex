@@ -85,5 +85,6 @@ Ultimately, the final conversion method used the homography matrix to adjust the
 
 \section{Model Training}
 
-% Hier könnte auch die erklörung für die Bounding Boxen hin
-% Hier müsste eine kurze Erklärung zum Training stehen
+The training of the models was done using YOLOv8, and was run on the HPC of the University of Münster called PALMA. It was conducted using the preprocessed data from the previous steps and the standard YOLOv8 model. \\
+To create comparable results, the training was done using the same parameters for all models. The training was done for 100 epochs with a patience of 25 and an image size of 640. The amount of devices used for the training was 2 to 4. \\ 
+The method behind the training was to create models from multiple different preprocessing workflows and then compare the results. This comparison was done using the mAP (mean average precision) score. The mAP score is a common metric used to evaluate object detection models. It is calculated by taking the average of the precision-recall curve.\\
