@@ -2,9 +2,6 @@
 \chapter{Discussion}
 \label{ch:discussion}
 
-% mittel ausführlich
-% alle
-
 As seen in chapter \ref{ch:results}, the results of the project are extremly bad, so much that there is no point in using the resulting models for any kind of further research. But the results are so bad, that for one it is unlikly that these results are representative, which means that some problems must have accured during the workflow, as well as that it is worth discussing why the results are so bad, what may have happend and what could be done to improve them. \\
 Because these circumstaces this chapter will not discuss the results further, but will deal with the problems that may have caused these results.
 
@@ -31,13 +28,9 @@ As shown in chapter \ref{ch:methods} the training of the model was done using th
 
 All the above mentioned points were problems and approaches we checked and made sure that these are not the root of the problems. The next paragraphs will discuss some other points that could have impacted the results of the models.
 
-% Hier müssen jetzt noch die punkt eingefügt werden (siehe unten)
+A possibilty might be, that the RGB data and possible preprocessing steps do not provide resulting videos that are good enough, for the algorithm to learn sensible connections out of them. As seen in chapter \ref{ch.results} the default RGB training results in a model with an mAP@0.5 value of abou 18\% which is definetly are very low value. However it is concerning that the results of the preprocessing steps are even worse, which should not be the case, because when you visually compare the used training videos for example the background subtraction should lead to way better results. \\
+Continuing on the topic of trainingdata, the amout of training data can impact the results of the model. The training data used in this project contains 34 videos. This is a very low amount of data, which could lead to overfitting or bad results in generall. \\
+A possible way to conteract the issue of the low amount of training data would be to incorporate cross validation into the training process.\\
+The last point to improve would have been the hyperparameter of the YOLO training. These were primarily the defaults which could be improved by using a grid search to find the best hyperparameters. But because the results were so bad, it is unlikely that the hyperparameters are the problem and the attempt was made to find the bigger issue that the exact best hyperparameters.
 
-
-% \begin{itemize}
-%     \item RGB ist nicht ausreichend
-%     \item Crossvalidation wäre noch eine Möglichkeit
-%     \item zu wenig Trainingsdaten; schlechte Datenqualität
-%     \item mal Hyperparameter untersuchen
-% \end{itemize}
 
