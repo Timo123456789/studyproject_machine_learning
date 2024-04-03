@@ -12,7 +12,6 @@ The first point to examine would be the preprocessing of the data. There are mul
 Another problem could be, that the preprocessing of the images lead to a shift in the time steps of the videos.
 
 This leads to the bounding boxes, as a shift in the time steps could lead to issues with mapping the bounding boxes correctly. 
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/bb_test_backSub.png}
@@ -24,12 +23,11 @@ This leads to the bounding boxes, as a shift in the time steps could lead to iss
     \includegraphics[width=0.5\textwidth]{images/bb_test_HSV.png}
     \caption{Combination of the preprocessed video using RGB to HSV and the corresponding bounding boxes}
 \end{figure}
-
 But as shown in the pictures above, the bounding boxes are correctly mapped to the videos. \\
 As visible in the pictures the bounding boxes are not perfect and could be improved, but they are good enought to be used for training a model. The improvement of the bounding boxes could lead to minimal better results if you want to improve a already good model, but in this case the bounding boxes are not the problem.
 
 As these points are not the problem, the next point to examine would be the training of the model. \\
-As shown in chapter \ref{ch:methods} the training of the model was done using the YOLOv8 model. A possibility here could be that the default YOLOv8 model is not suitable to identify insects in the RGB or our preprocessed videos. But considering the results of the study shown in chapter \ref{ch:related_work}, which used YOLO to identify and classify street signs in RGB videos with results up to 83.2\% in the mAP@0.5 score, it is safe to assume that the YOLOv8 model should be suitable for this task. \\
+As shown in chapter \ref{ch:methods} the training of the model was done using the YOLOv8 model. A possibility here could be that the default YOLOv8 model is not suitable to identify insects in the RGB or our preprocessed videos. But considering the results of the study shown in chapter \ref{ch:related_work}, which used YOLO to identify and classify street signs in RGB videos with results up to 83.2\% in the mAP@0.5 score, it is safe to assume that the YOLOv8 model should be suitable for this task. 
 
 All the above mentioned points were problems and approaches we checked and made sure that these are not the root of the problems. The next paragraphs will discuss some other points that could have impacted the results of the models.
 
