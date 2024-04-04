@@ -24,7 +24,6 @@ url = {http://arxiv.org/abs/2304.00501},
 year = {2023}
 }
 
-
 @article{Zheng2020,
 abstract = {Bounding box regression is the crucial step in object detection. In existing methods, while ℓn-norm loss is widely adopted for bounding box regression, it is not tailored to the evaluation metric, i.e., Intersection over Union (IoU). Recently, IoU loss and generalized IoU (GIoU) loss have been proposed to benefit the IoU metric, but still suffer from the problems of slow convergence and inaccurate regression. In this paper, we propose a Distance-IoU (DIoU) loss by incorporating the normalized distance between the predicted box and the target box, which converges much faster in training than IoU and GIoU losses. Furthermore, this paper summarizes three geometric factors in bounding box regression, i.e., overlap area, central point distance and aspect ratio, based on which a Complete IoU (CIoU) loss is proposed, thereby leading to faster convergence and better performance. By incorporating DIoU and CIoU losses into state-of-the-art object detection algorithms, e.g., YOLO v3, SSD and Faster R-CNN, we achieve notable performance gains in terms of not only IoU metric but also GIoU metric. Moreover, DIoU can be easily adopted into non-maximum suppression (NMS) to act as the criterion, further boosting performance improvement.},
 archivePrefix = {arXiv},
@@ -41,6 +40,7 @@ pages = {12993--13000},
 title = {{Distance-IoU loss: Faster and better learning for bounding box regression}},
 year = {2020}
 }
+
 @article{Li2020,
 abstract = {One-stage detector basically formulates object detection as dense classification and localization (i.e., bounding box regression). The classification is usually optimized by Focal Loss and the box location is commonly learned under Dirac delta distribution. A recent trend for one-stage detectors is to introduce an individual prediction branch to estimate the quality of localization, where the predicted quality facilitates the classification to improve detection performance. This paper delves into the representations of the above three fundamental elements: quality estimation, classification and localization. Two problems are discovered in existing practices, including (1) the inconsistent usage of the quality estimation and classification between training and inference, and (2) the inflexible Dirac delta distribution for localization. To address the problems, we design new representations for these elements. Specifically, we merge the quality estimation into the class prediction vector to form a joint representation, and use a vector to represent arbitrary distribution of box locations. The improved representations eliminate the inconsistency risk and accurately depict the flexible distribution in real data, but contain continuous labels, which is beyond the scope of Focal Loss. We then propose Generalized Focal Loss (GFL) that generalizes Focal Loss from its discrete form to the continuous version for successful optimization. On COCO test-dev, GFL achieves 45.0 Percent AP using ResNet-101 backbone, surpassing state-of-the-art SAPD (43.5 Percent) and ATSS (43.6 Percent) with higher or comparable inference speed.},
 archivePrefix = {arXiv},
@@ -145,4 +145,12 @@ urldate = {2024-03-28}
     month     = {1},
     year      = {2024},
     pages     = {7157-7166}
+}
+
+@misc{ultralyticsYOLOPerformance,
+	author = {Jocher, Glenn and Rizwan Munawar, Muhammad and Vina, Abirami},
+	title = {{Y}{O}{L}{O} {P}erformance {M}etrics --- docs.ultralytics.com},
+	howpublished = {\url{https://docs.ultralytics.com/guides/yolo-performance-metrics/}},
+	year = {2023},
+	note = {[Accessed 04-04-2024]},
 }
