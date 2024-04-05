@@ -3,7 +3,6 @@
 \label{ch:results}
 
 % ausführlich
-% NOT FINAL - unsure about section structure and names
 % alle
 
 This chapter presents the results of the project. This is done by visualising and comparing the results of the different data pre-processing approaches.
@@ -12,8 +11,8 @@ This chapter presents the results of the project. This is done by visualising an
 First af all the results of the default RGB training are presented. The default RGB training was done using the raw RGB data without any preprocessing. The results of this training are shown in Table~\ref{fig:results_rgb}.
 
 % results of rgb
-The important values to look at are the precision and recall value of the epochs of the model. The precision and recall values should be as high as possible. The precision value shows the accuracy of detected objects and the recall value shows how many of the actual values were predicted correctly. Normally the two values are getting better with more epochs processed \citep{ultralyticsYOLOPerformance}. But in Figure \ref{fig:results_rgb} the precision is getting lower with each new epoch besides one spike and the recall value stays quite low with one low point.
-The box\_loss is also an interesting value to look at. It shows the loss of the bounding boxes. The lower the value the better the bounding boxes are predicted. The box\_loss is getting lower with each epoch which is at first sight a good sign. But in the box loss of the validation it varies a lot. So this model is quite bad at detecting the insects in the RGB data.
+The important values to look at are the precision and recall of the model epochs. The precision and recall values should be as high as possible. The precision value shows the accuracy of the detected objects and the recall value shows how many of the actual values were correctly predicted. Normally the two values get better as more epochs are processed \citep{ultralyticsYOLOPerformance}. But in the figure \ref{fig:results_rgb} the precision gets lower with each new epoch, except for one spike, and the recall stays quite low with one low point.
+The box\_loss is also an interesting value to look at. It shows the loss of the bounding boxes. The lower the value, the better the bounding boxes are predicted. The box\_loss gets lower with each epoch, which at first sight is a good sign. But the box loss of the validation varies a lot. So this model is quite bad at detecting the insects in the RGB data.
 
 \begin{figure}[htbp] 
     \centering
@@ -34,7 +33,7 @@ The background subtraction method was then used on the rgb data. The results of 
 \end{figure}
 
 % results of background subtraction
-The background subtraction model has much lower precision and recall values than the RGB model. At the final epochs it even goes down to lower than 0.0002 but for that the box\_loss looks normal. All in all the the results of the background subtraction model is not good and should normally be better than the RGB model.
+The background subtraction model has much lower precision and recall than the RGB model. In the final epochs it goes down to less than 0.0002, but the box\_loss looks normal. All in all, the results of the background subtraction model are not good and should normally be better than the RGB model.
 
 % background subtraction + time offset 1
 
@@ -47,8 +46,8 @@ The background subtraction method was then combined with the time offset method 
     \label{fig:results_bgsub_timeoffset1}
 \end{figure}
 
-% TODO results of background subtraction + time offset 1
-Because the frames in the video data was just combined with one extra frame to visualize movement in pictures the results of the background subtraction + time offset 1 model are similar to the background subtraction model with almost the same results. So the time offset had no effect on the model.
+% results of background subtraction + time offset 1
+Because the frames in the video data were simply combined with an extra frame to visualise movement in the images, the results of the background subtraction + time offset 1 model are similar to the background subtraction model, with almost the same results. So the time offset had no effect on the model.
 
 % HSV
 The next results are from the training with the HSV data. The HSV data was created by converting the RGB data to the HSV color space. The results of this training are shown in Table~\ref{fig:results_hsv}.
@@ -61,7 +60,7 @@ The next results are from the training with the HSV data. The HSV data was creat
 \end{figure}
 
 % results of hsv
-The precision and recall values of the HSV training are very low. They are not going up steadily as they should and even go near zero in the later epochs. Thats a really unnormal progression. The box loss is indeed going down steadily which is a good sign. These results show that the model is not able to detect the insects in the HSV data.
+The precision and recall of the HSV training are very low. They do not increase steadily as they should, and in the later epochs they are even close to zero. This is a really abnormal progression. The box loss actually goes down steadily, which is a good sign. These results show that the model is not able to detect the insects in the HSV data.
 
 % HSV + background subtraction
 The HSV data was then combined with the background subtraction method. The results of this training are shown in Table~\ref{fig:results_hsv_bgsub}.
@@ -74,4 +73,6 @@ The HSV data was then combined with the background subtraction method. The resul
 \end{figure}
 
 % results of hsv + background subtraction
-The results of the model trained with the HSV data and background subtraction is based on the same data as the HSV model. With the background subtraction added the model should perform better than the original HSV model. Firstly the precision and recall values are higher than the original HSV model but still towards zero. Because the precision and recall values are looking not normal the model is not able to detect the insects in the HSV data with the background subtraction.
+The results of the model trained with the HSV data and background subtraction are based on the same data as the HSV model. With the background subtraction added, the model should perform better than the original HSV model. First, the precision and recall values are higher than the original HSV model, but still close to zero. As the precision and recall values do not look normal, the model is not able to detect the insects in the HSV data with the background subtraction.
+
+Further analysis is not necessary due to the poor results of the models. Other findings of the models do not provide any more valuable information. In the next chapter these results are discussed and possible reasons for the poor results are given.
